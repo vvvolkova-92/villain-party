@@ -1,0 +1,8 @@
+@import '../../scss/variables.scss';
+
+.app {
+  width: 100%;
+  max-width: calc(100% - 150px);
+  margin: 0 auto;
+  color: $primary_color_text;
+}

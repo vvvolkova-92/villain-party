@@ -1,0 +1,48 @@
+@import '../../scss/mixin.scss';
+@import '../../scss/variables.scss';
+
+.intro {
+  @include flex(center, center, column);
+  min-height: 600px;
+  position: relative;
+
+  &__block {
+    position: relative;
+    // max-width: 1240px;
+    @include flex(center, center, column);
+  }
+
+  &__image {
+    width: auto;
+    height: 400px;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 40px;
+  }
+
+  &__button {
+    all: unset;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50px;
+    left: 130px;
+    background-image: url(../../images/icons/speaker.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 1000;
+
+    transition: all 0.5s 0s ease-in-out;
+
+    &:hover {
+      background-image: url(../../images/icons/speaker_hover.png);
+      transition: all 0.5s 0s ease-in-out;
+    }
+  }
+  
+}
+
