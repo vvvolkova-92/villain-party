@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "./static/css/main.77161fd4.css",
+    "main.js": "./static/js/main.72676310.js",
+    "static/js/845.d0ef6590.chunk.js": "./static/js/845.d0ef6590.chunk.js",
+    "static/media/party-song.mp3": "./static/media/party-song.d7fb52138a39bf660836.mp3",
+    "static/media/intro.png": "./static/media/intro.fab3618a12898421b1af.png",
+    "static/media/malifecent.png": "./static/media/malifecent.c02f3aeba23a686e159c.png",
+    "static/media/hades.png": "./static/media/hades.8be268b58c6fd133daa5.png",
+    "static/media/dart.png": "./static/media/dart.fad1e65a325f8a7d7c57.png",
+    "static/media/jafar.png": "./static/media/jafar.33ca2312f72cf0788b9e.png",
+    "static/media/Red_Queen.png": "./static/media/Red_Queen.390663d11be5f0aaa7a1.png",
+    "static/media/cruella.png": "./static/media/cruella.f1031da88d8e6b8d397c.png",
+    "static/media/bender.jpeg": "./static/media/bender.c716f33bf7d396a13fed.jpeg",
+    "static/media/yago.png": "./static/media/yago.2ad7f8045cbe77f8195e.png",
+    "static/media/ursula.jpeg": "./static/media/ursula.ed4e1688633e35932a51.jpeg",
+    "static/media/plankton.png": "./static/media/plankton.b1777e874623abb56ca7.png",
+    "index.html": "./index.html",
+    "main.77161fd4.css.map": "./static/css/main.77161fd4.css.map",
+    "main.72676310.js.map": "./static/js/main.72676310.js.map",
+    "845.d0ef6590.chunk.js.map": "./static/js/845.d0ef6590.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.77161fd4.css",
+    "static/js/main.72676310.js"
+  ]
+}
