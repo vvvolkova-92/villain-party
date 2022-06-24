@@ -136,7 +136,7 @@ export const confettiConfig =  {
     }
   }
 };
- export const villians = [
+ export const villains = [
    {id: nanoid(10), name: 'Урсула', evilDeeds: '1299', image: ursula},
    {id: nanoid(10), name: 'Бендер', evilDeeds: '15673', image: bender},
    {id: nanoid(10), name: 'Малефисента', evilDeeds: '5409', image: malifecent},

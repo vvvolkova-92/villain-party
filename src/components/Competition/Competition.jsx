@@ -1,9 +1,9 @@
 import React from 'react';
 import Select from 'react-select';
 import style from './Competition.module.scss';
-import { selectOptions, villians} from '../services/constans';
+import { selectOptions, villains} from '../services/constans';
 
-const VillianCard = ({ isActive, id, image, name, evilDeeds }) => {
+const VillainCard = ({ isActive, id, image, name, evilDeeds }) => {
   return (
     <li className={isActive ? style.villian__card_active : style.villian__card} key={id} >
     <img src={image} alt={name} className={style.villian__image}></img>
@@ -15,8 +15,8 @@ const VillianCard = ({ isActive, id, image, name, evilDeeds }) => {
   )
 }
 
-const Villians = () => {
-  return villians.map(villian => <VillianCard id={villian.id} image={villian.image} name={villian.name} evilDeeds={villian.evilDeeds} />)
+const Villains = () => {
+  return villains.map(villain => <VillainCard id={villain.id} image={villain.image} name={villain.name} evilDeeds={villain.evilDeeds} key={villain.id}/>)
 }
 
 function Competition() {
@@ -47,7 +47,7 @@ function Competition() {
         className="custom-select"
         />}
         <ul className={style.rating__list}>
-          <Villians />
+          <Villains />
         </ul>
       </div>
 
