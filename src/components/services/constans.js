@@ -137,22 +137,22 @@ export const confettiConfig =  {
   }
 };
  export const villains = [
-   {id: nanoid(10), name: 'Урсула', evilDeeds: 1299, image: ursula},
-   {id: nanoid(10), name: 'Бендер', evilDeeds: 15673, image: bender},
-   {id: nanoid(10), name: 'Малефисента', evilDeeds: 5409, image: malifecent},
-   {id: nanoid(10), name: 'Ирацебета', evilDeeds: 345, image: redqueen},
-   {id: nanoid(10), name: 'Планктон', evilDeeds: 3907, image: plankton},
-   {id: nanoid(10), name: 'Стервелла', evilDeeds: 9999, image: cruella},
-   {id: nanoid(10), name: 'Аид', evilDeeds: 6666666, image: aid},
-   {id: nanoid(10), name: 'Дарт Вейдер', evilDeeds: 39021, image: dart},
-   {id: nanoid(10), name: 'Джафар', evilDeeds: 2908, image: jafar},
+   {name: 'Урсула', evilDeeds: 1299, image: ursula},
+   {name: 'Бендер', evilDeeds: 15673, image: bender},
+   {name: 'Малефисента', evilDeeds: 5409, image: malifecent},
+   {name: 'Ирацебета', evilDeeds: 12, image: redqueen},
+   {name: 'Планктон', evilDeeds: 3907, image: plankton},
+   {name: 'Стервелла', evilDeeds: 9999, image: cruella},
+   {name: 'Аид', evilDeeds: 6666666, image: aid},
+   {name: 'Дарт Вейдер', evilDeeds: 39021, image: dart},
+   {name: 'Джафар', evilDeeds: 2908, image: jafar},
  ];
  
  export const selectOptions = [
+  { value: 'selection', label: 'Сортировка выбором' },
   { value: 'bubble', label: 'Сортировка пузырьком' },
   { value: 'shaker', label: 'Шейкерная сортировка' },
   { value: 'comb', label: 'Сортировка расчёской' },
   { value: 'insertion', label: 'Сортировка вставками' },
-  { value: 'selection', label: 'Сортировка выбором' },
   { value: 'merge', label: 'Сортировка слиянием' },
 ]
