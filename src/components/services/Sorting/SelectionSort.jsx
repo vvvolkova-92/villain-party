@@ -4,10 +4,9 @@ import { swap } from '../Functions/swap';
 
 export function getSelectionSortAnimations(villainsArray = []) {
    const copyArray = [...villainsArray];
-   const sizeArray = villainsArray.length;
    const animationsArray = [];
-
-  for(let i = 0; i < villainsArray.length; i++) {
+   let countSwap = 0;
+  for(let i = 0; i < villainsArray.length-1; i++) {
     //АЛГОРИТМ: индекс переменной с минимальным значением
     let min = i;
     // АЛГОРИТМ: j - след. за переменной с индексом i
@@ -23,14 +22,14 @@ export function getSelectionSortAnimations(villainsArray = []) {
       }
     if (min !== i) {
       swap(copyArray, i, min);
+      countSwap++;
       // АНИМАЦИЯ: пушим в анимации объект! указываем тип swap, массив со сравниваемыми индексами i и min - показываем когда 
       // меняем значения! + передаем копию перебираемого массива
       animationsArray.push( { type: 'swap', data: [i, min], array: [...copyArray] } );
       }
-
     }
   //функция будет возвращать анимации
-  return animationsArray;
+  return {animations: animationsArray, count: countSwap}
 }
 
 

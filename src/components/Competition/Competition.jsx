@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useRef, useState, useEffect } from 'react';
+import React, { forwardRef, useRef, useState } from 'react';
 import Select from 'react-select';
 import style from './Competition.module.scss';
 import { selectOptions, villains} from '../services/constans';
@@ -20,17 +20,6 @@ function Competition() {
   const [villainsArray, setVillainsArray] = useState(villains);
   //КОЛХОЗ
   const refs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
-  // const [villainsCards, setVillainsCards] = useState(() => {
-  //   return villainsArray.map((villain, id) => <VillainCard 
-  //   id={`evil${id}`}
-  //   image={villain.image} 
-  //   name={villain.name} 
-  //   evilDeeds={villain.evilDeeds} 
-  //   key={`evil${id}`}
-  //   ref={refs[id]}/>) 
-  // });
-
-
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -45,7 +34,7 @@ function Competition() {
     }),
   };
 
-  // функция парсинга анимация
+  // функция парсинга анимации
   async function parseAnimations(animations) {
     //циклом пройтись по анимациям
     for(const animation of animations) {
@@ -59,36 +48,34 @@ function Competition() {
         //выделить рамкой карточки
         refs[i].current.classList.add(`${style.villian__card_activeSwap}`);
         refs[j].current.classList.add(`${style.villian__card_activeSwap}`);
-        // console.log(refs[i].current);
-        // document.querySelector(`#evil${i}`).style.border = '2px red solid';
-        // document.querySelector(`#evil${j}`).style.border = '2px red solid';
       }
-      else if (type === 'select') {
+      if (type === 'select') {
         //другой цвет карточки
         refs[i].current.classList.add(`${style.villian__card_activeSelect}`);
         refs[j].current.classList.add(`${style.villian__card_activeSelect}`);
-        // document.querySelector(`#evil${i}`).style.border = '2px green solid';
-        // document.querySelector(`#evil${j}`).style.border = '2px green solid';
       }
-      await wait(30);
+      await wait(1000);
+      
       if (type === 'swap' && array) {
         setVillainsArray(array);
       }
       refs[i].current.className = style.villian__card;
       refs[j].current.className = style.villian__card;
-      // document.querySelector(`#evil${i}`).style.border = 'none';
-      // document.querySelector(`#evil${j}`).style.border = 'none';
     }
   }
 
   //функция выбора типа сортировки в зависимости от значения  в селекте
   async function sort(name) {
     let animations = [];
+    let result;
     switch (name) {
       case "selection":
-        animations = getSelectionSortAnimations(villainsArray);
+        result = getSelectionSortAnimations(villainsArray);
+        console.log(result);
+        const animations = result.animations;
         await parseAnimations(animations);
-        default: console.log('fdfdfdfd');
+      break
+      default: console.log('fdfdfdfd');
     }
   }
 
@@ -97,10 +84,8 @@ function Competition() {
     switch (sortName) {
       case "selection":
         sort('selection');
-        // sortArray = bubbleSort(newArray);
-        // return sortArray.map(villain => <VillainCard id={villain.id} image={villain.image} name={villain.name} evilDeeds={villain.evilDeeds} key={villain.id}/>);
-      default:
-        // return newArray.map(villain => <VillainCard id={villain.id} image={villain.image} name={villain.name} evilDeeds={villain.evilDeeds} key={villain.id}/>);
+      break;
+      default: console.log('не такого значения');
     }
   }
   return (
@@ -117,13 +102,15 @@ function Competition() {
         onChange={changeHandler}
         />}
         <ul className={style.rating__list}>
-          { villainsArray.map((villain, id) => <VillainCard 
-    id={`evil${id}`}
-    image={villain.image} 
-    name={villain.name} 
-    evilDeeds={villain.evilDeeds} 
-    key={`evil${id}`}
-    ref={refs[id]}/>) }
+          { villainsArray.map((villain, id) => 
+            <VillainCard 
+            id={`evil${id}`}
+            image={villain.image} 
+            name={villain.name} 
+            evilDeeds={villain.evilDeeds} 
+            key={`evil${id}`}
+            ref={refs[id]}/>) 
+          }
         </ul>
       </div>
 
