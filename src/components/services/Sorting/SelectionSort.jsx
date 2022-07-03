@@ -22,10 +22,7 @@ export function getSelectionSortAnimations(villainsArray = []) {
        //АЛГОРИТМ: если мин индекс не равен i, то нужно переместить эл-ты массива местами
       }
     if (min !== i) {
-      const copy = copyArray[i];
-      copyArray[i] = copyArray[min];
-      copyArray[min] = copy;
-      // swap(copyArray, i, min);
+      swap(copyArray, i, min);
       // АНИМАЦИЯ: пушим в анимации объект! указываем тип swap, массив со сравниваемыми индексами i и min - показываем когда 
       // меняем значения! + передаем копию перебираемого массива
       animationsArray.push( { type: 'swap', data: [i, min], array: [...copyArray] } );

@@ -5,36 +5,32 @@ import { selectOptions, villains} from '../services/constans';
 import { getSelectionSortAnimations } from '../services/Sorting/SelectionSort';
 import { wait } from '../services/Functions/wait';
 
-export const VillainCard = ({ isActive, id, image, name, evilDeeds, onClick }) => {
-  return (
-    <li id={id} className={isActive ? style.villian__card_active : style.villian__card}>
-    <img src={image} alt={name} className={style.villian__image}></img>
-    <div className={style.villian__info}>
-      <span className={style.villian__deeds}>{evilDeeds}</span>
-      <span className={style.villian__name}>{name}</span>
-    </div>
-  </li>
-  )
-};
-
-// const Villains = ({ array }) => {
-//   const ref = useRef(null);
-//   const allVillains = array.map(villain => <VillainCard 
-//     id={villain.id} 
-//     image={villain.image} 
-//     name={villain.name} 
-//     evilDeeds={villain.evilDeeds} 
-//     key={villain.id}
-//     ref={ref}
-//     />);
-//     // console.log(allVillains);
-//   return allVillains;
-// };
+const VillainCard = React.forwardRef(({id, image, name, evilDeeds }, ref) => (
+  <li id={id} className={style.villian__card} ref={ref}>
+  <img src={image} alt={name} className={style.villian__image}></img>
+  <div className={style.villian__info}>
+    <span className={style.villian__deeds}>{evilDeeds}</span>
+    <span className={style.villian__name}>{name}</span>
+  </div>
+</li>
+));
 
 function Competition() {
-  const [state, setState] = useState(null);
   //дефолтное состояние массива со злодеями
   const [villainsArray, setVillainsArray] = useState(villains);
+  //КОЛХОЗ
+  const refs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
+  // const [villainsCards, setVillainsCards] = useState(() => {
+  //   return villainsArray.map((villain, id) => <VillainCard 
+  //   id={`evil${id}`}
+  //   image={villain.image} 
+  //   name={villain.name} 
+  //   evilDeeds={villain.evilDeeds} 
+  //   key={`evil${id}`}
+  //   ref={refs[id]}/>) 
+  // });
+
+
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -61,22 +57,27 @@ function Competition() {
       //если тип равен  swap
       if (type === 'swap') {
         //выделить рамкой карточки
-
-        document.querySelector(`#evil-${i}`).style.border = '2px red solid';
-        document.querySelector(`#evil-${j}`).style.border = '2px red solid';
+        refs[i].current.classList.add(`${style.villian__card_activeSwap}`);
+        refs[j].current.classList.add(`${style.villian__card_activeSwap}`);
+        // console.log(refs[i].current);
+        // document.querySelector(`#evil${i}`).style.border = '2px red solid';
+        // document.querySelector(`#evil${j}`).style.border = '2px red solid';
       }
       else if (type === 'select') {
         //другой цвет карточки
-        document.querySelector(`#evil-${i}`).style.border = '2px green solid';
-        document.querySelector(`#evil-${j}`).style.border = '2px green solid';
+        refs[i].current.classList.add(`${style.villian__card_activeSelect}`);
+        refs[j].current.classList.add(`${style.villian__card_activeSelect}`);
+        // document.querySelector(`#evil${i}`).style.border = '2px green solid';
+        // document.querySelector(`#evil${j}`).style.border = '2px green solid';
       }
       await wait(30);
       if (type === 'swap' && array) {
         setVillainsArray(array);
       }
-
-      document.querySelector(`#evil-${i}`).style.border = 'none';
-      document.querySelector(`#evil-${j}`).style.border = 'none';
+      refs[i].current.className = style.villian__card;
+      refs[j].current.className = style.villian__card;
+      // document.querySelector(`#evil${i}`).style.border = 'none';
+      // document.querySelector(`#evil${j}`).style.border = 'none';
     }
   }
 
@@ -92,8 +93,8 @@ function Competition() {
   }
 
   const changeHandler = (value) => {
-    setState(value.value);
-    switch (state) {
+    const sortName = value.value;
+    switch (sortName) {
       case "selection":
         sort('selection');
         // sortArray = bubbleSort(newArray);
@@ -116,17 +117,14 @@ function Competition() {
         onChange={changeHandler}
         />}
         <ul className={style.rating__list}>
-          { 
-            villainsArray.map((villain, id) => <VillainCard 
-              id={`evil-${id}`}
-              image={villain.image} 
-              name={villain.name} 
-              evilDeeds={villain.evilDeeds} 
-              key={`evil-${id}`}
-            />) 
-          }
+          { villainsArray.map((villain, id) => <VillainCard 
+    id={`evil${id}`}
+    image={villain.image} 
+    name={villain.name} 
+    evilDeeds={villain.evilDeeds} 
+    key={`evil${id}`}
+    ref={refs[id]}/>) }
         </ul>
-        <button onClick={() => sort('selection')}>TIK</button>
       </div>
 
     </main>

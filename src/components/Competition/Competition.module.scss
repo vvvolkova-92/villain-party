@@ -59,9 +59,19 @@
     border: 2px solid transparent;
     border-radius: 15px;
 
+    &_activeSwap {
+      border: 2px solid $brand-color;
+    }
+
+    &_activeSelect {
+      border: 2px solid white;
+    }
+
     &:hover {
       border: 2px solid $brand-color;
     }
+
+
 
   }
 
