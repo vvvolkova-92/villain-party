@@ -1,8 +1,9 @@
 @import '../../scss/mixin.scss';
 @import '../../scss/variables.scss';
+
 .competition {
   @include flex(center, start, column);
-  min-height: 650px;
+  min-height: 350px;
   max-width: 1200px;
   margin: 0 auto;
 
@@ -95,9 +96,10 @@
 }
 
 .pedestal {
-  @include flex(center, center, row);
+  @include flex(center, space-between, column);
   width: 100%;
-  min-height: 250px;
+  min-height: 320px;
+
 
   &__image {
     width: 150px;
@@ -105,10 +107,29 @@
     border-radius: 50%;
   }
 
+  &__vinner {
+    @include flex(center, center, row);
+  }
+
+  &__info {
+    font-size: 20px;
+    @extend .pedestal__vinner;
+    gap: 20px;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
   &__text {
-    margin-left: 20px;
+    margin: 0 0 0 20px;
     font-size: 16px;
-    max-width: 600px;
+    max-width: 800px;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 28px;
   }
 
 }

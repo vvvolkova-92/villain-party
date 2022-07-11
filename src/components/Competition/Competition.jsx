@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState } from 'react';
+import React, { forwardRef, useRef, useState, useEffect } from 'react';
 import Select from 'react-select';
 import style from './Competition.module.scss';
 import { selectOptions, villains} from '../services/constans';
@@ -6,16 +6,27 @@ import { getSelectionSortAnimations } from '../services/Sorting/SelectionSort';
 import { wait } from '../services/Functions/wait';
 
 const Rating = ({villainsArray, animations, time}) => {
-  console.log(animations);
+  const ref = useRef();
+  useEffect(() => {
+    return () => {
+      ref.current.scrollIntoView({behavior: "smooth"});
+    }
+  }, []);
+
   return (
     <>
       <div className={style.pedestal}>
-      <img className={style.pedestal__image} alt="Первое место" src={villainsArray[0].image}/>
-      <p className={style.pedestal__text}>{villainsArray[0].about}</p>
-    </div>
-    <p>Всего сравнений: {animations.countSelect}</p>
-    <p>Всего перестановок: {animations.countSwap}</p>
-    <p>Всего сортировки: {`${time / 1000} секунд`}</p>
+        <h2 className={style.pedestal__title}>Победитель!</h2>
+        <div className={style.pedestal__vinner}>
+          <img className={style.pedestal__image} alt="Первое место" src={villainsArray[0].image}/>
+          <p className={style.pedestal__text}>{villainsArray[0].about}</p>
+        </div>
+        <div className={style.pedestal__info} ref={ref}>
+          <p>Всего сравнений: <span>{animations.countSelect}</span></p>
+          <p>Всего перестановок: <span>{animations.countSwap}</span></p>
+          <p>Время анимации сортировки: <span>{time / 1000}</span> сек</p>
+        </div>
+      </div>
     </>
   )  
 }
@@ -142,4 +153,4 @@ function Competition() {
   )
 }
 
-export default Competition
+export default Competition;
