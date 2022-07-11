@@ -1,6 +1,5 @@
 @import '../../scss/mixin.scss';
 @import '../../scss/variables.scss';
-
 .competition {
   @include flex(center, start, column);
   min-height: 650px;
@@ -93,4 +92,23 @@
     margin: 10px 0;
     font-size: 22px;
   }
+}
+
+.pedestal {
+  @include flex(center, center, row);
+  width: 100%;
+  min-height: 250px;
+
+  &__image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+
+  &__text {
+    margin-left: 20px;
+    font-size: 16px;
+    max-width: 600px;
+  }
+
 }

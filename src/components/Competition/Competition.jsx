@@ -5,6 +5,21 @@ import { selectOptions, villains} from '../services/constans';
 import { getSelectionSortAnimations } from '../services/Sorting/SelectionSort';
 import { wait } from '../services/Functions/wait';
 
+const Rating = ({villainsArray, animations, time}) => {
+  console.log(animations);
+  return (
+    <>
+      <div className={style.pedestal}>
+      <img className={style.pedestal__image} alt="Первое место" src={villainsArray[0].image}/>
+      <p className={style.pedestal__text}>{villainsArray[0].about}</p>
+    </div>
+    <p>Всего сравнений: {animations.countSelect}</p>
+    <p>Всего перестановок: {animations.countSwap}</p>
+    <p>Всего сортировки: {`${time / 1000} секунд`}</p>
+    </>
+  )  
+}
+
 const VillainCard = React.forwardRef(({id, image, name, evilDeeds }, ref) => (
   <li id={id} className={style.villian__card} ref={ref}>
   <img src={image} alt={name} className={style.villian__image}></img>
@@ -18,6 +33,9 @@ const VillainCard = React.forwardRef(({id, image, name, evilDeeds }, ref) => (
 function Competition() {
   //дефолтное состояние массива со злодеями
   const [villainsArray, setVillainsArray] = useState(villains);
+  const [state, setState] = useState(false);
+  const [animations, setAnimations] = useState();
+  const [time, setTime] = useState();
   //КОЛХОЗ
   const refs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
   const customStyles = {
@@ -36,6 +54,7 @@ function Competition() {
 
   // функция парсинга анимации
   async function parseAnimations(animations) {
+    const start = new Date().getTime();
     //циклом пройтись по анимациям
     for(const animation of animations) {
       //деструктуризация объекта анимации
@@ -54,7 +73,7 @@ function Competition() {
         refs[i].current.classList.add(`${style.villian__card_activeSelect}`);
         refs[j].current.classList.add(`${style.villian__card_activeSelect}`);
       }
-      await wait(1000);
+      await wait(100);
       
       if (type === 'swap' && array) {
         setVillainsArray(array);
@@ -62,6 +81,9 @@ function Competition() {
       refs[i].current.className = style.villian__card;
       refs[j].current.className = style.villian__card;
     }
+    const end = new Date().getTime();
+    const time = end - start;
+    setTime(time);
   }
 
   //функция выбора типа сортировки в зависимости от значения  в селекте
@@ -74,6 +96,8 @@ function Competition() {
         console.log(result);
         const animations = result.animations;
         await parseAnimations(animations);
+        setState(prev => !prev);
+        setAnimations(result);
       break
       default: console.log('fdfdfdfd');
     }
@@ -113,7 +137,7 @@ function Competition() {
           }
         </ul>
       </div>
-
+      {state &&  <Rating villainsArray={villainsArray} animations={animations} time={time}/>}
     </main>
   )
 }
