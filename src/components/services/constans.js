@@ -150,9 +150,10 @@ export const confettiConfig =  {
  
  export const selectOptions = [
   { value: 'selection', label: 'Сортировка выбором' },
+  { value: 'insertion', label: 'Сортировка вставками' },
   { value: 'bubble', label: 'Сортировка пузырьком' },
   { value: 'shaker', label: 'Шейкерная сортировка' },
   { value: 'comb', label: 'Сортировка расчёской' },
-  { value: 'insertion', label: 'Сортировка вставками' },
+
   { value: 'merge', label: 'Сортировка слиянием' },
 ]

@@ -1,32 +1,38 @@
 import React, { forwardRef, useRef, useState, useEffect } from 'react';
 import Select from 'react-select';
+import Button from '../Button/Button';
 import style from './Competition.module.scss';
 import { selectOptions, villains} from '../services/constans';
 import { getSelectionSortAnimations } from '../services/Sorting/SelectionSort';
+import { getInsertionSortAnimations } from '../services/Sorting/InsertionSort';
 import { wait } from '../services/Functions/wait';
 
 const Rating = ({villainsArray, animations, time}) => {
   const ref = useRef();
   useEffect(() => {
     return () => {
+      animations &&
       ref.current.scrollIntoView({behavior: "smooth"});
     }
   }, []);
 
   return (
-    <>
-      <div className={style.pedestal}>
-        <h2 className={style.pedestal__title}>Победитель!</h2>
-        <div className={style.pedestal__vinner}>
-          <img className={style.pedestal__image} alt="Первое место" src={villainsArray[0].image}/>
-          <p className={style.pedestal__text}>{villainsArray[0].about}</p>
-        </div>
-        <div className={style.pedestal__info} ref={ref}>
-          <p>Всего сравнений: <span>{animations.countSelect}</span></p>
-          <p>Всего перестановок: <span>{animations.countSwap}</span></p>
-          <p>Время анимации сортировки: <span>{time / 1000}</span> сек</p>
-        </div>
+    <>{
+      time 
+      ?  <div className={style.pedestal}>
+      <h2 className={style.pedestal__title}>Победитель!</h2>
+      <div className={style.pedestal__vinner}>
+        <img className={style.pedestal__image} alt="Первое место" src={villainsArray[0].image}/>
+        <p className={style.pedestal__text}>{villainsArray[0].about}</p>
       </div>
+      <div className={style.pedestal__info} ref={ref}>
+        <p>Всего сравнений: <span>{animations.countSelect}</span></p>
+        <p>Всего перестановок: <span>{animations.countSwap}</span></p>
+        <p>Время анимации сортировки: <span>{time / 1000}</span> сек</p>
+      </div>
+    </div>
+      : ''
+    }
     </>
   )  
 }
@@ -44,7 +50,6 @@ const VillainCard = React.forwardRef(({id, image, name, evilDeeds }, ref) => (
 function Competition() {
   //дефолтное состояние массива со злодеями
   const [villainsArray, setVillainsArray] = useState(villains);
-  const [state, setState] = useState(false);
   const [animations, setAnimations] = useState();
   const [time, setTime] = useState();
   //КОЛХОЗ
@@ -77,7 +82,7 @@ function Competition() {
       if (type === 'swap') {
         //выделить рамкой карточки
         refs[i].current.classList.add(`${style.villian__card_activeSwap}`);
-        refs[j].current.classList.add(`${style.villian__card_activeSwap}`);
+        refs[j].current.classList.add(`${style.villian__card_activeSwapLittle}`); 
       }
       if (type === 'select') {
         //другой цвет карточки
@@ -104,14 +109,16 @@ function Competition() {
     switch (name) {
       case "selection":
         result = getSelectionSortAnimations(villainsArray);
+      break;
+      case "insertion":
+        result = getInsertionSortAnimations(villainsArray);
         console.log(result);
-        const animations = result.animations;
-        await parseAnimations(animations);
-        setState(prev => !prev);
-        setAnimations(result);
-      break
+      break;
       default: console.log('fdfdfdfd');
     }
+    animations = result.animations;
+    await parseAnimations(animations);
+    setAnimations(result);
   }
 
   const changeHandler = (value) => {
@@ -120,12 +127,21 @@ function Competition() {
       case "selection":
         sort('selection');
       break;
+      case "insertion":
+        sort('insertion');
+      break;
       default: console.log('не такого значения');
     }
-  }
+  };
+  const onButtonBreakClickHandler = () => {
+    setVillainsArray(villains);
+    setTime(null);
+  };
+
   return (
     <main className={style.competition}>
       <div className={style.rating__block}>
+      <Button onClick={onButtonBreakClickHandler}>Прервать сортировку</Button>
         <p className={style.rating__text}>Итак, на тусовке Бендер предложить узнать, кто же из них сделал больше всего гадких пакостей.
         Вы можете узнать об этом, выбрав один из методов сортировки в списке</p>
         {
@@ -147,8 +163,13 @@ function Competition() {
             ref={refs[id]}/>) 
           }
         </ul>
+        {/* {animations && (<><Rating villainsArray={villainsArray} animations={animations} time={time} />
+        <button onClick={() => {
+          setVillainsArray(villains);
+          setTime(null);
+        }
+        }>Сбросить сортировку</button></> )} */}
       </div>
-      {state &&  <Rating villainsArray={villainsArray} animations={animations} time={time}/>}
     </main>
   )
 }
