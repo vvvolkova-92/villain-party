@@ -11,7 +11,6 @@ const Rating = ({villainsArray, animations, time}) => {
   const ref = useRef();
   useEffect(() => {
     return () => {
-      animations &&
       ref.current.scrollIntoView({behavior: "smooth"});
     }
   }, []);
@@ -66,6 +65,10 @@ function Competition() {
       color: state.isSelected ? '#19acb9' : 'black',
       padding: 20,
     }),
+    container: (base, state) => ({
+      ...base,
+      width: 320,
+    })
   };
 
   // функция парсинга анимации
@@ -141,7 +144,7 @@ function Competition() {
   return (
     <main className={style.competition}>
       <div className={style.rating__block}>
-      <Button onClick={onButtonBreakClickHandler}>Прервать сортировку</Button>
+      <Button onClick={onButtonBreakClickHandler}>Остановить / Сбросить</Button>
         <p className={style.rating__text}>Итак, на тусовке Бендер предложить узнать, кто же из них сделал больше всего гадких пакостей.
         Вы можете узнать об этом, выбрав один из методов сортировки в списке</p>
         {
@@ -163,13 +166,8 @@ function Competition() {
             ref={refs[id]}/>) 
           }
         </ul>
-        {/* {animations && (<><Rating villainsArray={villainsArray} animations={animations} time={time} />
-        <button onClick={() => {
-          setVillainsArray(villains);
-          setTime(null);
-        }
-        }>Сбросить сортировку</button></> )} */}
       </div>
+      {animations && (<Rating villainsArray={villainsArray} animations={animations} time={time} />)}
     </main>
   )
 }
