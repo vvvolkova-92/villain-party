@@ -16,14 +16,13 @@
 }
 
 .rating {
-
   &__block {
     width: 100%;
     display: grid;
     align-items: start;
     grid-template-areas: 
-    'text select'
-    'sort sort';
+    'text select but'
+    'sort sort sort';
     gap: 20px;
   }
 
@@ -62,6 +61,9 @@
     &_activeSwap {
       border: 2px solid $brand-color;
     }
+    &_activeSwapLittle {
+      border: 2px solid red;
+    }
 
     &_activeSelect {
       border: 2px solid white;
@@ -70,8 +72,6 @@
     &:hover {
       border: 2px solid $brand-color;
     }
-
-
 
   }
 
@@ -133,3 +133,4 @@
   }
 
 }
+

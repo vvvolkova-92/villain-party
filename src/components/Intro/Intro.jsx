@@ -11,7 +11,6 @@ function Intro() {
   const [play, { stop }] = useSound(partySong);
 
   const buttonHandler = () => {
-    console.log(state);
     setState(!state);
     state ? stop(): play();
   }
