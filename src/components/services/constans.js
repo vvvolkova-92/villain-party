@@ -155,8 +155,7 @@ export const confettiConfig =  {
   { value: 'selection', label: 'Сортировка выбором' },
   { value: 'insertion', label: 'Сортировка вставками' },
   { value: 'bubble', label: 'Сортировка пузырьком' },
-  { value: 'shaker', label: 'Шейкерная сортировка' },
   { value: 'comb', label: 'Сортировка расчёской' },
-
-  { value: 'merge', label: 'Сортировка слиянием' },
+  // { value: 'shaker', label: 'Шейкерная сортировка' },
+  // { value: 'merge', label: 'Сортировка слиянием' },
 ]
