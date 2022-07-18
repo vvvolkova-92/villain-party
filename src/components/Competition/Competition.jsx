@@ -5,6 +5,8 @@ import style from './Competition.module.scss';
 import { selectOptions, villains} from '../services/constans';
 import { getSelectionSortAnimations } from '../services/Sorting/SelectionSort';
 import { getInsertionSortAnimations } from '../services/Sorting/InsertionSort';
+import { getBubbleSortAnimations } from '../services/Sorting/BubbleSort';
+import { getCombSortAnimations } from '../services/Sorting/CombSort';
 import { wait } from '../services/Functions/wait';
 
 const Rating = ({villainsArray, animations, time}) => {
@@ -92,7 +94,7 @@ function Competition() {
         refs[i].current.classList.add(`${style.villian__card_activeSelect}`);
         refs[j].current.classList.add(`${style.villian__card_activeSelect}`);
       }
-      await wait(100);
+      await wait(300);
       
       if (type === 'swap' && array) {
         setVillainsArray(array);
@@ -115,7 +117,12 @@ function Competition() {
       break;
       case "insertion":
         result = getInsertionSortAnimations(villainsArray);
-        console.log(result);
+      break;
+      case "bubble":
+        result = getBubbleSortAnimations(villainsArray);
+      break;
+      case "comb":
+        result = getCombSortAnimations(villainsArray);
       break;
       default: console.log('fdfdfdfd');
     }
@@ -133,6 +140,12 @@ function Competition() {
       case "insertion":
         sort('insertion');
       break;
+      case "bubble":
+        sort('bubble');
+      break;
+      case "comb":
+        sort('comb');
+      break;
       default: console.log('не такого значения');
     }
   };
@@ -144,7 +157,7 @@ function Competition() {
   return (
     <main className={style.competition}>
       <div className={style.rating__block}>
-      <Button onClick={onButtonBreakClickHandler}>Остановить / Сбросить</Button>
+      <Button onClick={onButtonBreakClickHandler}>Новый массив</Button>
         <p className={style.rating__text}>Итак, на тусовке Бендер предложить узнать, кто же из них сделал больше всего гадких пакостей.
         Вы можете узнать об этом, выбрав один из методов сортировки в списке</p>
         {
