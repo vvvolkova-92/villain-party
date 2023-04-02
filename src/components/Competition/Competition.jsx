@@ -2,7 +2,7 @@ import React, { forwardRef, useRef, useState, useEffect } from 'react';
 import Select from 'react-select';
 import Button from '../Button/Button';
 import style from './Competition.module.scss';
-import { selectOptions, villains} from '../services/constans';
+import {getRandom, selectOptions, villains} from '../services/constans';
 import { getSelectionSortAnimations } from '../services/Sorting/SelectionSort';
 import { getInsertionSortAnimations } from '../services/Sorting/InsertionSort';
 import { getBubbleSortAnimations } from '../services/Sorting/BubbleSort';
@@ -18,7 +18,8 @@ const Rating = ({villainsArray, animations, time}) => {
   }, []);
 
   return (
-    <>{
+    <>
+      {
       time 
       ?  <div className={style.pedestal}>
       <h2 className={style.pedestal__title}>Победитель!</h2>
@@ -53,6 +54,7 @@ function Competition() {
   const [villainsArray, setVillainsArray] = useState(villains);
   const [animations, setAnimations] = useState();
   const [time, setTime] = useState();
+  const [btnState, setBtnState] = useState(false);
   //КОЛХОЗ
   const refs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
   const customStyles = {
@@ -60,12 +62,14 @@ function Competition() {
       ...base,
       padding: 15,
       borderColor: state.isFocused ? '#19acb9' : 'none',
+      cursor: 'pointer',
     }),
     option: (base, state) => ({
       ...base,
       background: 'transparent',
       color: state.isSelected ? '#19acb9' : 'black',
       padding: 20,
+      cursor: 'pointer',
     }),
     container: (base, state) => ({
       ...base,
@@ -94,7 +98,7 @@ function Competition() {
         refs[i].current.classList.add(`${style.villian__card_activeSelect}`);
         refs[j].current.classList.add(`${style.villian__card_activeSelect}`);
       }
-      await wait(300);
+      await wait(100);
       
       if (type === 'swap' && array) {
         setVillainsArray(array);
@@ -109,6 +113,8 @@ function Competition() {
 
   //функция выбора типа сортировки в зависимости от значения  в селекте
   async function sort(name) {
+    setBtnState(true);
+    setTime(null);
     let animations = [];
     let result;
     switch (name) {
@@ -129,9 +135,11 @@ function Competition() {
     animations = result.animations;
     await parseAnimations(animations);
     setAnimations(result);
+    setBtnState(false);
   }
 
   const changeHandler = (value) => {
+
     const sortName = value.value;
     switch (sortName) {
       case "selection":
@@ -150,14 +158,18 @@ function Competition() {
     }
   };
   const onButtonBreakClickHandler = () => {
-    setVillainsArray(villains);
+    const newVillains = villains.map(villain => {
+      villain.evilDeeds = getRandom(100, 90000);
+      return villain;
+    });
+    setVillainsArray(newVillains);
     setTime(null);
   };
 
   return (
     <main className={style.competition}>
       <div className={style.rating__block}>
-      <Button onClick={onButtonBreakClickHandler}>Новый массив</Button>
+      <Button onClick={onButtonBreakClickHandler} disabled={btnState}>Новый массив</Button>
         <p className={style.rating__text}>Итак, на тусовке Бендер предложить узнать, кто же из них сделал больше всего гадких пакостей.
         Вы можете узнать об этом, выбрав один из методов сортировки в списке</p>
         {

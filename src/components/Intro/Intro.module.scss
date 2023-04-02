@@ -3,7 +3,7 @@
 
 .intro {
   @include flex(center, center, column);
-  min-height: 600px;
+  min-height: 450px;
   position: relative;
 
   &__block {
@@ -14,7 +14,7 @@
 
   &__image {
     width: auto;
-    height: 400px;
+    height: 280px;
   }
 
   &__title {

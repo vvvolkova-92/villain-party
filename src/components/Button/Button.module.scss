@@ -21,4 +21,12 @@
     border-color: #19acb9;
     transition: all 0.5s 0s ease-in-out;
   }
+
+  &:disabled {
+    cursor: none;
+    background-color: transparent;
+    border-color: #19acb9;
+    color: #19acb9;
+    transition: all 0.5s 0s ease-in-out;
+  }
 }

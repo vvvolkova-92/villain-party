@@ -9,7 +9,7 @@ import aid from '../../images/villians/hades.png';
 import dart from '../../images/villians/dart.png';
 import jafar from '../../images/villians/jafar.png';
 
-function getRandom(min, max) {
+export function getRandom(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;

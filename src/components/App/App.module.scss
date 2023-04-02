@@ -1,8 +1,11 @@
 @import '../../scss/variables.scss';
 
 .app {
+  box-sizing: border-box;
+  overflow: hidden;
   width: 100%;
   max-width: calc(100% - 150px);
+
   margin: 0 auto;
   color: $primary_color_text;
 }
